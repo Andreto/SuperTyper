@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>SuperTyper</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body onkeypress="updateLetters(event);" onload="loadChars('');">
+    <select id="mode-selector" onchange="selectMode();">
+      <option value="0">Words</option>
+      <option value="1">Letters</option>
+    </select>
+
+    <div id="aligner">
+      <div id="letter-holder">abcdefghijklmnopqrstuvwxyz</div>
+    </div>
+
+    <table class="score-holder">
+      <tr class="score-item" id="score-accuracy">
+        <th>Accuracy</th>
+        <td>1</td>
+      </tr>
+      <tr class="score-item" id="score-speed">
+        <th>Speed</th>
+        <td>0s</td>
+      </tr>
+    </table>
+
+    <script src="words.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
