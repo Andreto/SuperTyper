@@ -1,12 +1,14 @@
 var wrong = 0;
 var total = 0;
 var speed = 0;
+var wordCount = 0;
 var lastTime = 0;
 var mode = 0;
 var possible = "abcdefghijklmnopqrstuvwxyz";
 
 function selectMode(){
   mode =  document.getElementById("mode-selector").value
+  document.getElementById("score-words").style.display = ["table-row", "none"][mode];
   loadChars('');
 }
 
@@ -28,7 +30,8 @@ function updateLetters(event){
   var possible = "abcdefghijklmnopqrstuvwxyz";
   var key = event.which || event.keyCode;
   total = total+1
-  console.log(key)
+
+  if (key==32 && s[0]=="_") {wordCount = wordCount + 1;}
 
   if ((String.fromCharCode(key) == s[0]) || (key==32 && s[0]=="_")){
     s = s.substring(1);
@@ -53,5 +56,6 @@ function updateLetters(event){
 
   document.getElementsByTagName("td")[0].innerHTML = accuracy + "%";
   document.getElementsByTagName("td")[1].innerHTML = Math.round(speed*100)/100 + "s";
+  document.getElementsByTagName("td")[2].innerHTML = wordCount;
 
 }
