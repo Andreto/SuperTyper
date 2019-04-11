@@ -7,7 +7,7 @@ var mode = 0;
 var possible = "abcdefghijklmnopqrstuvwxyz";
 
 function selectMode(){
-  mode =  document.getElementById("mode-selector").value
+  mode =  document.getElementById("mode-selector").value;
   document.getElementById("score-words").style.display = ["table-row", "none"][mode];
   loadChars('');
 }
@@ -16,8 +16,8 @@ function loadChars(chars){
   while (chars.length < 20){
     var loadFunctions = [
     (words[Math.floor(Math.random()*words.length)] + "_"),
-    (possible.charAt(Math.floor(Math.random() * possible.length))),
-  ]
+    (possible.charAt(Math.floor(Math.random() * possible.length)))
+    ];
     chars += loadFunctions[mode];
   }
   document.getElementById("letter-holder").innerHTML = chars;
@@ -29,7 +29,7 @@ function updateLetters(event){
   s = document.getElementById("letter-holder").innerHTML;
   var possible = "abcdefghijklmnopqrstuvwxyz";
   var key = event.which || event.keyCode;
-  total = total+1
+  total = total+1;
 
   if (key==32 && s[0]=="_") {wordCount = wordCount + 1;}
 
@@ -48,7 +48,7 @@ function updateLetters(event){
 
   }else{
 
-    wrong = wrong+1
+    wrong = wrong+1;
   }
 
   var accuracy = Math.round(((total-wrong)/total)*100);
