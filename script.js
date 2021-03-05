@@ -1,14 +1,19 @@
 var wrong = 0;
 var total = 0;
 var speed = 0;
+var speedWPM = 0;
 var wordCount = 0;
 var lastTime = 0;
 var mode = 0;
 var possible = "abcdefghijklmnopqrstuvwxyz";
 
+var d = new Date();
+var startTime = d.getTime();
+
 function selectMode(){
   mode =  document.getElementById("mode-selector").value;
   document.getElementById("score-words").style.display = ["table-row", "none"][mode];
+  document.getElementById("score-speed-wpm").style.display = ["table-row", "none"][mode];
   loadChars('');
 }
 
@@ -31,13 +36,24 @@ function updateLetters(event){
   var key = event.which || event.keyCode;
   total = total+1;
 
-  if (key==32 && s[0]=="_") {wordCount = wordCount + 1;}
+  var d = new Date();
+
+  if (key==32 && s[0]=="_") {
+    wordCount = wordCount + 1;
+    speedWPM = wordCount/((d.getTime() - startTime)/(1000*60));
+  }
 
   if ((String.fromCharCode(key) == s[0]) || (key==32 && s[0]=="_")){
     s = s.substring(1);
     loadChars(s);
 
-    var d = new Date();
+    console.log(((d.getTime()/100)/10)-lastTime);
+
+    if (((d.getTime()/100)/10)-lastTime > 5) {
+      lastTime = Math.round(d.getTime()/100)/10;
+      startTime = d.getTime();
+      wordCount = 0;
+    }
 
     if (lastTime == 0){
       lastTime = Math.round(d.getTime()/100)/10;
@@ -52,10 +68,10 @@ function updateLetters(event){
   }
 
   var accuracy = Math.round(((total-wrong)/total)*100);
-  console.log(accuracy, Math.round(speed*100)/100);
 
   document.getElementsByTagName("td")[0].innerHTML = accuracy + "%";
   document.getElementsByTagName("td")[1].innerHTML = Math.round(speed*100)/100 + "s";
-  document.getElementsByTagName("td")[2].innerHTML = wordCount;
+  document.getElementsByTagName("td")[2].innerHTML = Math.round(speedWPM*10)/10;
+  document.getElementsByTagName("td")[3].innerHTML = wordCount;
 
 }
